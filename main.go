@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
@@ -13,6 +14,7 @@ import (
 	. "github.com/mlabouardy/komiser/handlers/ovh"
 	. "github.com/mlabouardy/komiser/services/cache"
 	_ "github.com/mlabouardy/komiser/services/ini"
+	"strconv"
 	"time"
 )
 
@@ -20,6 +22,7 @@ const (
 	DEFAULT_PORT     = 3005
 	DEFAULT_DURATION = 30
 )
+
 
 func startServer(port int, cache Cache, dataset string, multiple bool) {
 	cache.Connect()
@@ -199,14 +202,39 @@ func startServer(port int, cache Cache, dataset string, multiple bool) {
 
 func main() {
 
+	e := godotenv.Load()
+
+	if e != nil {
+		log.Println(e)
+	}
+
+	applicationPortEnv := os.Getenv("APPLICATION_PORT")
+
+	applicationPort, err := strconv.Atoi(applicationPortEnv)
+
+	if err != nil {
+		log.Println("Application port should be integer")
+		return
+	}
+
+	redisAddress := os.Getenv("REDIS_ADDRESS")
+	redisPort := os.Getenv("REDIS_PORT")
+
+	multipleAwsAccountEnv := os.Getenv("MULTIPLE_AWS_ACCOUNT")
+	multipleAwsAccount, err := strconv.ParseBool(multipleAwsAccountEnv)
+
+	if err != nil {
+		log.Println("multiple_aws_account should be bool")
+	}
+
+	redisUrl := redisAddress + ":" + redisPort
 
 	cache := &Redis{
-		Addr:       "localhost:6379",
+		Addr:       redisUrl,
 		Expiration: time.Duration(DEFAULT_DURATION),
 	}
-	startServer(DEFAULT_PORT, cache, "", false)
+	startServer(applicationPort, cache, "", multipleAwsAccount)
 
 }
 
-//curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer badf634a6ea5156891bdf53b48054259265aaa5f025324256addb558eabaef02" "https://api.digitalocean.com/v2/account"
 

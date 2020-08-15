@@ -30,8 +30,10 @@ type DigitalOceanHandler struct {
 }
 
 func NewDigitalOceanHandler(cache Cache) *DigitalOceanHandler {
+
+	accessToken := os.Getenv("DIGITAL_OCEAN_ACCESS_TOKEN")
 	tokenSource := &TokenSource{
-		AccessToken: os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"),
+		AccessToken: accessToken,
 	}
 
 	oauthClient := oauth2.NewClient(context.Background(), tokenSource)
