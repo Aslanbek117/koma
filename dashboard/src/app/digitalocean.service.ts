@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs/Rx";
 import { StoreService } from './store.service';
+import { localAddress } from '../environments/environment'
 
 @Injectable()
 export class DigitaloceanService {
@@ -12,7 +13,7 @@ export class DigitaloceanService {
 
   public getProfile(){
     return this.http
-     .get(`${this.BASE_URL}/account`)
+     .get(`http://localhost:4200/digitalocean/account`)
      .map(res => {
        return res.json()
      })
@@ -26,7 +27,7 @@ export class DigitaloceanService {
 
   public getActionsHistory(){
     return this.http
-     .get(`${this.BASE_URL}/actions`)
+     .get(`${localAddress.address}/actions`)
      .map(res => {
        return res.json()
      })
@@ -40,7 +41,7 @@ export class DigitaloceanService {
 
   public getContentDeliveryNetworks(){
     return this.http
-     .get(`${this.BASE_URL}/cdns`)
+     .get(`${localAddress.address}/cdns`)
      .map(res => {
        return res.json()
      })
@@ -54,7 +55,7 @@ export class DigitaloceanService {
 
   public getCertificates(){
     return this.http
-     .get(`${this.BASE_URL}/certificates`)
+     .get(`${localAddress.address}/certificates`)
      .map(res => {
        return res.json()
      })
@@ -68,7 +69,7 @@ export class DigitaloceanService {
 
   public getDomains(){
     return this.http
-     .get(`${this.BASE_URL}/domains`)
+     .get(`${localAddress.address}/domains`)
      .map(res => {
        return res.json()
      })
@@ -82,7 +83,7 @@ export class DigitaloceanService {
 
   public getDroplets(){
     return this.http
-     .get(`${this.BASE_URL}/droplets`)
+     .get(`${localAddress.address}/droplets`)
      .map(res => {
        return res.json()
      })
@@ -96,7 +97,7 @@ export class DigitaloceanService {
 
   public getListOfFirewalls(){
     return this.http
-     .get(`${this.BASE_URL}/firewalls/list`)
+     .get(`${localAddress.address}/firewalls/list`)
      .map(res => {
        return res.json()
      })
@@ -110,7 +111,7 @@ export class DigitaloceanService {
 
   public getUnsecureFirewalls(){
     return this.http
-     .get(`${this.BASE_URL}/firewalls/unsecure`)
+     .get(`${localAddress.address}/firewalls/unsecure`)
      .map(res => {
        return res.json()
      })
@@ -124,7 +125,7 @@ export class DigitaloceanService {
 
   public getFloatingIps(){
     return this.http
-     .get(`${this.BASE_URL}/floatingips`)
+     .get(`${localAddress.address}/floatingips`)
      .map(res => {
        return res.json()
      })
@@ -138,7 +139,7 @@ export class DigitaloceanService {
 
   public getKubernetesClusters(){
     return this.http
-     .get(`${this.BASE_URL}/k8s`)
+     .get(`${localAddress.address}/k8s`)
      .map(res => {
        return res.json()
      })
@@ -152,7 +153,7 @@ export class DigitaloceanService {
 
   public getSshKeys(){
     return this.http
-     .get(`${this.BASE_URL}/keys`)
+     .get(`${localAddress.address}/keys`)
      .map(res => {
        return res.json()
      })
@@ -166,7 +167,7 @@ export class DigitaloceanService {
 
   public getLoadBalancers(){
     return this.http
-     .get(`${this.BASE_URL}/loadbalancers`)
+     .get(`${localAddress.address}/loadbalancers`)
      .map(res => {
        return res.json()
      })
@@ -180,7 +181,7 @@ export class DigitaloceanService {
 
   public getProjects(){
     return this.http
-     .get(`${this.BASE_URL}/projects`)
+     .get(`${localAddress.address}/projects`)
      .map(res => {
        return res.json()
      })
@@ -194,7 +195,7 @@ export class DigitaloceanService {
 
   public getRecords(){
     return this.http
-     .get(`${this.BASE_URL}/records`)
+     .get(`${localAddress.address}/records`)
      .map(res => {
        return res.json()
      })
@@ -208,7 +209,7 @@ export class DigitaloceanService {
 
   public getSnapshots(){
     return this.http
-     .get(`${this.BASE_URL}/snapshots`)
+     .get(`${localAddress.address}/snapshots`)
      .map(res => {
        return res.json()
      })
@@ -222,7 +223,7 @@ export class DigitaloceanService {
 
   public getVolumes(){
     return this.http
-     .get(`${this.BASE_URL}/volumes`)
+     .get(`${localAddress.address}/volumes`)
      .map(res => {
        return res.json()
      })
@@ -236,7 +237,7 @@ export class DigitaloceanService {
 
   public getDatabases(){
     return this.http
-     .get(`${this.BASE_URL}/databases`)
+     .get(`${localAddress.address}/databases`)
      .map(res => {
        return res.json()
      })

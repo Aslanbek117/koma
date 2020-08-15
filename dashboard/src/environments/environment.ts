@@ -6,3 +6,7 @@
 export const environment = {
   production: false
 };
+
+export const localAddress = {
+  address: "http://localhost:4200/digitalocean"
+};
