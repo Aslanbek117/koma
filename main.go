@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
-
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	. "github.com/mlabouardy/komiser/handlers/aws"
@@ -14,12 +12,12 @@ import (
 	. "github.com/mlabouardy/komiser/handlers/gcp"
 	. "github.com/mlabouardy/komiser/handlers/ovh"
 	. "github.com/mlabouardy/komiser/services/cache"
-	. "github.com/mlabouardy/komiser/services/ini"
-	"github.com/urfave/cli"
+	_ "github.com/mlabouardy/komiser/services/ini"
+	"time"
 )
 
 const (
-	DEFAULT_PORT     = 3000
+	DEFAULT_PORT     = 3005
 	DEFAULT_DURATION = 30
 )
 
@@ -187,7 +185,7 @@ func startServer(port int, cache Cache, dataset string, multiple bool) {
 	r.HandleFunc("/digitalocean/snapshots", digitaloceanHandler.SnapshotsHandler)
 	r.HandleFunc("/digitalocean/volumes", digitaloceanHandler.VolumesHandler)
 
-	r.PathPrefix("/").Handler(http.FileServer(assetFS()))
+	//r.PathPrefix("/").Handler(http.FileServer(assetFS()))
 
 	headersOk := handlers.AllowedHeaders([]string{"profile"})
 	loggedRouter := handlers.LoggingHandler(os.Stdout, handlers.CORS(headersOk)(r))
@@ -200,80 +198,15 @@ func startServer(port int, cache Cache, dataset string, multiple bool) {
 }
 
 func main() {
-	app := cli.NewApp()
-	app.Name = "Komiser"
-	app.Version = "2.4.0"
-	app.Usage = "Cloud Environment Inspector"
-	app.Copyright = "Komiser - https://komiser.io"
-	app.Compiled = time.Now()
-	app.Authors = []cli.Author{
-		cli.Author{
-			Name:  "Mohamed Labouardy",
-			Email: "mohamed@labouardy.com",
-		},
+
+
+	cache := &Redis{
+		Addr:       "localhost:6379",
+		Expiration: time.Duration(DEFAULT_DURATION),
 	}
-	app.Commands = []cli.Command{
-		{
-			Name:  "start",
-			Usage: "Start server",
-			Flags: []cli.Flag{
-				cli.IntFlag{
-					Name:  "port, p",
-					Usage: "Server port",
-					Value: DEFAULT_PORT,
-				},
-				cli.IntFlag{
-					Name:  "duration, d",
-					Usage: "Cache expiration time",
-					Value: DEFAULT_DURATION,
-				},
-				cli.StringFlag{
-					Name:  "redis, r",
-					Usage: "Redis server",
-				},
-				cli.StringFlag{
-					Name:  "dataset, ds",
-					Usage: "BigQuery Bill dataset",
-				},
-				cli.BoolFlag{
-					Name:  "multiple, m",
-					Usage: "Enable multiple AWS accounts",
-				},
-			},
-			Action: func(c *cli.Context) error {
-				port := c.Int("port")
-				duration := c.Int("duration")
-				redis := c.String("redis")
-				dataset := c.String("dataset")
-				multiple := c.Bool("multiple")
+	startServer(DEFAULT_PORT, cache, "", false)
 
-				var cache Cache
-
-				if port == 0 {
-					port = DEFAULT_PORT
-				}
-				if duration == 0 {
-					duration = DEFAULT_DURATION
-				}
-
-				if redis == "" {
-					cache = &Memory{
-						Expiration: time.Duration(duration),
-					}
-				} else {
-					cache = &Redis{
-						Addr:       redis,
-						Expiration: time.Duration(duration),
-					}
-				}
-
-				startServer(port, cache, dataset, multiple)
-				return nil
-			},
-		},
-	}
-	app.CommandNotFound = func(c *cli.Context, command string) {
-		fmt.Fprintf(c.App.Writer, "Command not found %q !", command)
-	}
-	app.Run(os.Args)
 }
+
+//curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer badf634a6ea5156891bdf53b48054259265aaa5f025324256addb558eabaef02" "https://api.digitalocean.com/v2/account"
+
