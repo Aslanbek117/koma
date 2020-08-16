@@ -154,7 +154,7 @@ func startServer(port int, cache Cache, dataset string, multiple bool) {
 	r.HandleFunc("/ovh/cloud/volumes", ovhHandler.DescribeCloudVolumesHandler)
 	r.HandleFunc("/ovh/cloud/snapshots", ovhHandler.DescribeCloudSnapshotsHandler)
 	r.HandleFunc("/ovh/cloud/alerts", ovhHandler.DescribeCloudAlertsandler)
-	r.HandleFunc("/ovh/cloud/current", ovhHandler.DescribeCurrentUsageHandler)
+	r.HandleFunc("/ovh/cloud/currenxt", ovhHandler.DescribeCurrentUsageHandler)
 	r.HandleFunc("/ovh/cloud/images", ovhHandler.DescribeCloudImagesHandler)
 	r.HandleFunc("/ovh/cloud/ip", ovhHandler.DescribeCloudIpsHandler)
 	r.HandleFunc("/ovh/cloud/network/private", ovhHandler.DescribeCloudPrivateNetworksHandler)
