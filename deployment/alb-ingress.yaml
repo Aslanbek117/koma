@@ -17,4 +17,4 @@ spec:
       - path: /*
         backend:
           serviceName: komiser
-          servicePort: 3000
+          servicePort: 9092

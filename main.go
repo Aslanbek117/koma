@@ -237,4 +237,6 @@ func main() {
 
 }
 
-
+// need to expose docker host and port
+//docker run -p 3972:3972 ....... etc
+// host will be docker.host.internal to point to localhost
