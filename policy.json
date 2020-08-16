@@ -105,6 +105,33 @@
                 "swf:ListDomains"
             ],
             "Resource": "*"
+        },
+        {
+            "Sid": "7",
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetCrawlers",
+                "glue:GetJobs",
+                "organization:DescribeOrganization",
+                "iam:GetUser",
+                "kinesis:ListStreams",
+                "kinesis:ListShards",
+                "kms:ListKeys",
+                "redshift:DescribeClusters",
+                "tag:GetResources",
+                "route53:ListResourceRecordSets",
+                "support:*",
+                "swf:ListDomains",
+                "eks:ListClusters",
+                "elasticache:DescribeCacheClusters",
+                "es:ListDomainNames",
+                "logs:DescribeLogGroups",
+                "datapipline:ListPipelines",
+                "ec2:DescribeNetworkAcls",
+                "ec2:DescribeRegions",
+                "apigateway:GET",
+                "dynamodb:ListTables"
+            ]
         }
     ]
 }
