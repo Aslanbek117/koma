@@ -15,7 +15,7 @@ require (
 	github.com/gorilla/mux v0.0.0-20180501031136-ded0c29b24f9
 	github.com/hashicorp/golang-lru v0.5.1
 	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af
-	github.com/joho/godotenv v1.3.0 // indirect
+	github.com/joho/godotenv v1.3.0
 	github.com/ovh/go-ovh v0.0.0-20181109152953-ba5adb4cf014
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/urfave/cli v0.0.0-20180226030253-8e01ec4cd3e2
